@@ -1,0 +1,16 @@
+RewriteEngine On
+#unless directory, remove trailing slash
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [R=301,L]
+
+#resolve .php file for extensionless php urls
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
+
+#redirect external .php requests to extensionless url
+#RewriteCond %{THE_REQUEST} ^[A-Z]+\ /([^/]+/)*[^.#?\ ]+\.php([#?][^\ ]*)?\ HTTP/
+#RewriteRule ^(([^/]+/)*[^.]+)\.php $1 [R=301,L]
+Options -Indexes
+ErrorDocument 403 '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><title>403 Forbidden</title></head><p>Zabranjen pristup..uzalud.</p></body></html>'
+#ErrorDocument 403 /images/403.html
